@@ -1,0 +1,33 @@
+{% extends "layouts/module_admin.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="Users">Users</a></li>
+{% endblock %}
+{% block module %}
+    <a href="?op=add" class="btn btn-success btn-sm" role="button">Add user</a>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Image</th>
+            <th scope="col">Role</th>
+            <th scope="col">Home page</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.image}}</td>
+            <td>{{user.role}}</td>
+            <td>{{user.home_page}}</td>
+            <td>
+              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button">Edit</a>
+              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button">Set password</a>
+              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-warning btn-sm" role="button">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
