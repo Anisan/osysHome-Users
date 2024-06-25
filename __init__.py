@@ -35,6 +35,7 @@ class Users(BasePlugin):
                 obj.setProperty("image", form.image.data)
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
+                obj.setProperty("apikey", form.apikey.data)
                 return redirect(self.name)
             else:
                 return self.render('user.html', {"form":form})
@@ -46,6 +47,7 @@ class Users(BasePlugin):
                 obj.setProperty("image", form.image.data)
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
+                obj.setProperty("apikey", form.apikey.data)
                 return redirect(self.name)
             else:
                 return self.render('user.html', {"form":form})

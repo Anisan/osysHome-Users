@@ -8,4 +8,5 @@ class UserForm(FlaskForm):
     image = StringField('Image')
     role = SelectField('Role',choices=(("user","User"), ("admin","Administrator")), validators=[DataRequired()])
     home_page = StringField('Home page')
+    apikey = StringField('API key')
     submit = SubmitField('Submit')
