@@ -6,12 +6,15 @@
 позволяя легко вносить изменения и управлять доступом.   
 """
 
+import os
+from settings import Config
 from app.core.main.BasePlugin import BasePlugin
 from app.core.models.Users import User
+from app.core.lib.object import setProperty, getProperty
 from plugins.Users.forms.UserForm import UserForm
 from plugins.Users.forms.PasswordForm import PasswordForm
 from app.core.lib.object import getObjectsByClass, addObject, getObject, deleteObject
-from flask import redirect
+from flask import redirect, jsonify
 
 class Users(BasePlugin):
 
@@ -32,25 +35,23 @@ class Users(BasePlugin):
             form = UserForm()
             if form.validate_on_submit():
                 obj = addObject(form.username.data, "Users")
-                obj.setProperty("image", form.image.data)
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
                 obj.setProperty("apikey", form.apikey.data)
                 return redirect(self.name)
             else:
-                return self.render('user.html', {"form":form})
+                return self.render('user.html', {"form":form, "lastLogin": "..."})
         elif op == 'edit':
             obj = getObject(user_name)
             user = User(obj)
             form = UserForm(obj=user)
             if form.validate_on_submit():
-                obj.setProperty("image", form.image.data)
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
                 obj.setProperty("apikey", form.apikey.data)
                 return redirect(self.name)
             else:
-                return self.render('user.html', {"form":form})
+                return self.render('user.html', {"form":form, "lastLogin": obj.getProperty("lastLogin")})
         elif op == 'delete':
             deleteObject(user_name)
             return redirect(self.name)
@@ -64,6 +65,24 @@ class Users(BasePlugin):
                 return redirect('/')
             else:
                 return self.render('password.html', {"form":formPass})
+        elif op == 'upload_image':
+            if 'file' not in request.files:
+                return jsonify({'error': 'No file part'})
+            
+            file = request.files['file']
+            if file.filename == '':
+                return jsonify({'error': 'No selected file'})
+            
+            user = request.form.get('user', '')
+
+            dir = os.path.join(Config.FILES_DIR,"private","avatars")
+            os.makedirs(dir, exist_ok=True)
+            filepath = os.path.join(dir, file.filename)
+            file.save(filepath)
+            url_image = "/files/private/avatars/" + file.filename
+            setProperty(user + ".image", url_image)
+
+            return jsonify({'url': url_image})
         
         users = getObjectsByClass("Users")
 

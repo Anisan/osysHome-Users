@@ -8,7 +8,6 @@
         <thead>
           <tr>
             <th scope="col">Username</th>
-            <th scope="col">Image</th>
             <th scope="col">Role</th>
             <th scope="col">Home page</th>
             <th scope="col"></th>
@@ -17,8 +16,10 @@
         <tbody>
           {% for user in users %}
           <tr>
-            <td>{{user.name}}</td>
-            <td>{{user.image}}</td>
+            <td>
+              <img id="avatar" src="{{user.image}}" alt="avatar" class="rounded-circle img-fluid" style="width: 30px;height: 30px;" onerror="this.src='/Users/static/Users.png'">
+              {{user.name}}
+            </td>
             <td>{{user.role}}</td>
             <td>{{user.home_page}}</td>
             <td>

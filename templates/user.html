@@ -13,34 +13,116 @@
     {% endfor %}
     </ul>
 {% endif %}
-
-<form id="form" method="POST">
-    <!-- Поля формы -->
-    {{ form.hidden_tag() }}
-    <div class="mb-3">
-        <div class="mb-3">
-            {{ form.username.label(class="form-label") }}
-            {{ form.username(class="form-control") }}
+<style>
+    .avatar_box {
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+    .upload-btn {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        border-radius: 50%;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-3">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <div class="container d-flex align-items-center justify-content-center">
+            <div class="avatar_box">
+                <img id="avatar" src="{{form.image.data}}" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;height: 150px;" onerror="this.src='/Users/static/Users.png'">
+                    <button type="button" class="btn btn-primary upload-btn rounded-circle" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                        <i class="fas fa-upload"></i>
+                    </button>
+            </div>
+          </div>
+          <h4 class="my-3">{{form.username.data}}</h4>
+          <p class="text-muted mb-1">Role: {{form.role.data}}</p>
+          <p class="text-muted mb-4">Last login: {{lastLogin}}</p>
         </div>
-        <div class="mb-3">
-            {{ form.image.label(class="form-label") }}
-            {{ form.image(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.role.label(class="form-label") }}
-            {{ form.role(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.home_page.label(class="form-label") }}
-            {{ form.home_page(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.apikey.label(class="form-label") }}
-            {{ form.apikey(class="form-control") }}
+      </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="card mb-4">
+            <div class="card-body">
+            <form id="form" method="POST">
+                <!-- Поля формы -->
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.role.label(class="form-label") }}
+                        {{ form.role(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.home_page.label(class="form-label") }}
+                        {{ form.home_page(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.apikey.label(class="form-label") }}
+                        {{ form.apikey(class="form-control") }}
+                    </div>
+                </div>
+                <!-- Кнопка отправки формы -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="Users" class="btn btn-secondary">Cancel</a>
+            </form>
+            </div>
         </div>
     </div>
-    <!-- Кнопка отправки формы -->
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="Users" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLabel">Upload Image File</h5>
+            </div>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="file">Select Image File:</label>
+                        <input type="file" class="form-control-file" id="file" name="file" accept="image/*">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+  <script>
+    function uploadFile() {
+            var formData = new FormData($('#uploadForm')[0]);
+            formData.append('user', "{{ form.username.data}}" )
+            console.log(formData)
+            $.ajax({
+                url: 'Users?op=upload_image',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                            if (response.url) {
+                                $('#avatar').attr('src', response.url).show();
+                                $('#uploadModal').modal('toggle');
+                            } else {
+                                alert(response.error);
+                            }
+                },
+                error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+                }
+            });
+        }
+  </script>
 {% endblock %}
