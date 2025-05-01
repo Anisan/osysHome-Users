@@ -38,6 +38,7 @@ class Users(BasePlugin):
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
                 obj.setProperty("apikey", form.apikey.data)
+                obj.setProperty("timezone", form.timezone.data)
                 return redirect(self.name)
             else:
                 return self.render('user.html', {"form":form, "lastLogin": "..."})
@@ -49,6 +50,7 @@ class Users(BasePlugin):
                 obj.setProperty("role", form.role.data)
                 obj.setProperty("home_page", form.home_page.data)
                 obj.setProperty("apikey", form.apikey.data)
+                obj.setProperty("timezone", form.timezone.data)
                 return redirect(self.name)
             else:
                 return self.render('user.html', {"form":form, "lastLogin": obj.getProperty("lastLogin")})

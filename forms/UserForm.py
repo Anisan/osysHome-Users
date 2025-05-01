@@ -9,4 +9,5 @@ class UserForm(FlaskForm):
     role = SelectField('Role',choices=(("user","User"),("guest","Guest"), ("editor","Editor"), ("admin","Administrator")), validators=[DataRequired()])
     home_page = StringField('Home page')
     apikey = StringField('API key')
+    timezone = StringField('Timezone')
     submit = SubmitField('Submit')

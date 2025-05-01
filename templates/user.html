@@ -67,6 +67,10 @@
                             {{ form.home_page(class="form-control") }}
                         </div>
                         <div class="mb-3">
+                            {{ form.timezone.label(class="form-label") }}
+                            {{ form.timezone(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
                             {{ form.apikey.label(class="form-label") }}
                             <div class="input-group mb-3">
                                 <!-- WTForms поле с дополнительными атрибутами -->

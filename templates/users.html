@@ -3,13 +3,14 @@
 <li class="breadcrumb-item"><a href="Users">Users</a></li>
 {% endblock %}
 {% block module %}
-    <a href="?op=add" class="btn btn-success btn-sm" role="button">Add user</a>
+    <a href="?op=add" class="btn btn-success btn-sm" role="button"><i class="fas fa-plus me-2"></i>Add user</a>
     <table class="table">
         <thead>
           <tr>
             <th scope="col">Username</th>
             <th scope="col">Role</th>
             <th scope="col">Home page</th>
+            <th scope="col">Last login</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -22,10 +23,11 @@
             </td>
             <td>{{user.role}}</td>
             <td>{{user.home_page}}</td>
+            <td>{{user.lastLogin}}</td>
             <td>
-              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button">Edit</a>
-              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button">Set password</a>
-              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-warning btn-sm" role="button">Delete</a>
+              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>Edit</a>
+              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>Set password</a>
+              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>Delete</a>
             </td>
           </tr>
           {% endfor %}
