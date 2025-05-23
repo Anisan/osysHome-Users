@@ -1,16 +1,16 @@
 {% extends "layouts/module_admin.html" %}
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="Users">Users</a></li>
+<li class="breadcrumb-item"><a href="Users">{{ _('Users')}}</a></li>
 {% endblock %}
 {% block module %}
-    <a href="?op=add" class="btn btn-success btn-sm" role="button"><i class="fas fa-plus me-2"></i>Add user</a>
+    <a href="?op=add" class="btn btn-success btn-sm" role="button"><i class="fas fa-plus me-2"></i>{{ _('Add user')}}</a>
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Role</th>
-            <th scope="col">Home page</th>
-            <th scope="col">Last login</th>
+            <th scope="col">{{ _('Username')}}</th>
+            <th scope="col">{{ _('Role')}}</th>
+            <th scope="col">{{ _('Home page')}}</th>
+            <th scope="col">{{ _('Last login')}}</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -25,9 +25,9 @@
             <td>{{user.home_page}}</td>
             <td>{{user.lastLogin}}</td>
             <td>
-              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>Edit</a>
-              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>Set password</a>
-              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>Delete</a>
+              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>{{ _('Edit')}}</a>
+              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>{{ _('Set password')}}</a>
+              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>{{ _('Delete')}}</a>
             </td>
           </tr>
           {% endfor %}

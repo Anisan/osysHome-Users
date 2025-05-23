@@ -1,6 +1,6 @@
 {% extends "layouts/module_admin.html" %}
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="Users">Users</a></li>
+<li class="breadcrumb-item"><a href="Users">{{ _('Users')}}</a></li>
 <li class="breadcrumb-item">{{form.username.data}}</li>
 {% endblock %}
 {% block module %}
@@ -42,8 +42,8 @@
                     </div>
                 </div>
                 <h4 class="my-3">{{form.username.data}}</h4>
-                <p class="text-muted mb-1">Role: {{form.role.data}}</p>
-                <p class="text-muted mb-4">Last login: {{lastLogin}}</p>
+                <p class="text-muted mb-1">{{ _('Role')}}: {{form.role.data}}</p>
+                <p class="text-muted mb-4">{{ _('Last login')}}: {{lastLogin}}</p>
             </div>
         </div>
     </div>
@@ -55,36 +55,36 @@
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
                         <div class="mb-3">
-                            {{ form.username.label(class="form-label") }}
+                            <label class="form-label">{{ _('Username') }}</label>
                             {{ form.username(class="form-control") }}
                         </div>
                         <div class="mb-3">
-                            {{ form.role.label(class="form-label") }}
+                            <label class="form-label">{{ _('Role') }}</label>
                             {{ form.role(class="form-control") }}
                         </div>
                         <div class="mb-3">
-                            {{ form.home_page.label(class="form-label") }}
+                            <label class="form-label">{{ _('Home page') }}</label>
                             {{ form.home_page(class="form-control") }}
                         </div>
                         <div class="mb-3">
-                            {{ form.timezone.label(class="form-label") }}
+                            <label class="form-label">{{ _('Timezone') }}</label>
                             {{ form.timezone(class="form-control") }}
                         </div>
                         <div class="mb-3">
-                            {{ form.apikey.label(class="form-label") }}
+                            <label class="form-label">{{ _('API key') }}</label>
                             <div class="input-group mb-3">
                                 <!-- WTForms поле с дополнительными атрибутами -->
-                                {{ form.apikey(class="form-control", placeholder="API ключ") }}
+                                {{ form.apikey(class="form-control") }}
 
                                 <button type="button" class="btn btn-primary" id="generateKeyBtn">
-                                    <i class="fas fa-key"></i> Generate key
+                                    <i class="fas fa-key"></i> {{ _('Generate key')}}
                                 </button>
                             </div>
                         </div>
                     </div>
                     <!-- Кнопка отправки формы -->
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="Users" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">{{ _('Submit')}}</button>
+                    <a href="Users" class="btn btn-secondary">{{ _('Cancel')}}</a>
                 </form>
             </div>
         </div>
@@ -97,18 +97,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="uploadModalLabel">Upload Image File</h5>
+                <h5 class="modal-title" id="uploadModalLabel">{{ _('Upload Image File')}}</h5>
             </div>
             <form id="uploadForm" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="file">Select Image File:</label>
+                        <label for="file">{{ _('Select Image File')}}:</label>
                         <input type="file" class="form-control-file" id="file" name="file" accept="image/*">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close')}}</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadFile()">{{ _('Upload')}}</button>
                 </div>
             </form>
         </div>

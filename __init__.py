@@ -10,7 +10,7 @@ import os
 from settings import Config
 from app.core.main.BasePlugin import BasePlugin
 from app.core.models.Users import User
-from app.core.lib.object import setProperty, getProperty
+from app.core.lib.object import setProperty
 from plugins.Users.forms.UserForm import UserForm
 from plugins.Users.forms.PasswordForm import PasswordForm
 from app.core.lib.object import getObjectsByClass, addObject, getObject, deleteObject
@@ -70,11 +70,11 @@ class Users(BasePlugin):
         elif op == 'upload_image':
             if 'file' not in request.files:
                 return jsonify({'error': 'No file part'})
-            
+
             file = request.files['file']
             if file.filename == '':
                 return jsonify({'error': 'No selected file'})
-            
+
             user = request.form.get('user', '')
 
             dir = os.path.join(Config.FILES_DIR,"private","avatars")
@@ -85,11 +85,10 @@ class Users(BasePlugin):
             setProperty(user + ".image", url_image)
 
             return jsonify({'url': url_image})
-        
+
         users = getObjectsByClass("Users")
 
         content = {
             'users': users,
         }
         return self.render('users.html', content)
-    
