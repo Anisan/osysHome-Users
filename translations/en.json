@@ -1,5 +1,4 @@
 {
-  "API key": "API key",
   "Add user": "Add user",
   "Generate key": "Generate key",
   "Home page": "Home page",
@@ -10,6 +9,5 @@
   "Select Image File": "Select Image File",
   "Set password": "Set password",
   "Timezone": "Timezone",
-  "Upload Image File": "Upload Image File",
-  "Users": "Users"
+  "Upload Image File": "Upload Image File"
 }
