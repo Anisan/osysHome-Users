@@ -7,7 +7,7 @@
 """
 
 import os
-from settings import Config
+from app.configuration import Config
 from app.core.main.BasePlugin import BasePlugin
 from app.core.models.Users import User
 from app.core.lib.object import setProperty
