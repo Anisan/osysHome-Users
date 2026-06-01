@@ -3,8 +3,51 @@
 <li class="breadcrumb-item"><a href="Users">{{ _('Users')}}</a></li>
 {% endblock %}
 {% block module %}
-    <a href="?op=add" class="btn btn-success btn-sm" role="button"><i class="fas fa-plus me-2"></i>{{ _('Add user')}}</a>
-    <table class="table">
+    <style>
+      .users-table td,
+      .users-table th {
+        vertical-align: middle;
+      }
+
+      .users-avatar {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+      }
+
+      .users-card-avatar {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+      }
+
+      .users-mobile-list {
+        display: none;
+      }
+
+      @media (max-width: 767.98px) {
+        .users-table-wrapper {
+          display: none;
+        }
+
+        .users-mobile-list {
+          display: block;
+        }
+
+        .users-actions .btn {
+          width: 100%;
+        }
+      }
+    </style>
+
+    <div class="d-flex justify-content-end justify-content-sm-start mb-3">
+      <a href="?op=add" class="btn btn-success btn-sm" role="button">
+        <i class="fas fa-plus me-2"></i>{{ _('Add user')}}
+      </a>
+    </div>
+
+    <div class="table-responsive users-table-wrapper">
+    <table class="table users-table">
         <thead>
           <tr>
             <th scope="col">{{ _('Username')}}</th>
@@ -18,19 +61,45 @@
           {% for user in users %}
           <tr>
             <td>
-              <img id="avatar" src="{{user.image}}" alt="avatar" class="rounded-circle img-fluid" style="width: 30px;height: 30px;" onerror="this.src='/Users/static/Users.png'">
+              <img src="{{user.image}}" alt="avatar" class="rounded-circle img-fluid users-avatar me-1" onerror="this.src='/Users/static/Users.png'">
               {{user.name}}
             </td>
             <td>{{user.role}}</td>
             <td>{{user.home_page}}</td>
             <td>{{user.lastLogin}}</td>
             <td>
-              <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>{{ _('Edit')}}</a>
-              <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>{{ _('Set password')}}</a>
-              <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>{{ _('Delete')}}</a>
+              <div class="d-grid d-md-flex gap-1 users-actions">
+                <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>{{ _('Edit')}}</a>
+                <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>{{ _('Set password')}}</a>
+                <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>{{ _('Delete')}}</a>
+              </div>
             </td>
           </tr>
           {% endfor %}
         </tbody>
     </table>
+    </div>
+
+    <div class="users-mobile-list">
+      {% for user in users %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <img src="{{user.image}}" alt="avatar" class="rounded-circle img-fluid users-card-avatar me-2" onerror="this.src='/Users/static/Users.png'">
+            <div>
+              <div class="fw-semibold">{{user.name}}</div>
+              <small class="text-muted">{{ _('Role')}}: {{user.role}}</small>
+            </div>
+          </div>
+          <div class="small text-muted mb-1">{{ _('Home page')}}: {{user.home_page}}</div>
+          <div class="small text-muted mb-2">{{ _('Last login')}}: {{user.lastLogin}}</div>
+          <div class="d-grid gap-1 users-actions">
+            <a href="?user={{user.name}}&op=edit" class="btn btn-success btn-sm" role="button"><i class="fas fa-pencil me-2"></i>{{ _('Edit')}}</a>
+            <a href="?user={{user.name}}&op=setPassword" class="btn btn-primary btn-sm" role="button"><i class="fas fa-key me-2"></i>{{ _('Set password')}}</a>
+            <a href="?user={{user.name}}&op=delete" onClick="return confirm('Delete record?')" class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash me-2"></i>{{ _('Delete')}}</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 {% endblock %}

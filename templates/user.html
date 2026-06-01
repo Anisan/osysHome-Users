@@ -18,6 +18,7 @@
         position: relative;
         width: 150px;
         height: 150px;
+        max-width: 100%;
     }
 
     .upload-btn {
@@ -26,10 +27,41 @@
         right: 0px;
         border-radius: 50%;
     }
+
+    .user-meta {
+        word-break: break-word;
+    }
+
+    @media (max-width: 991.98px) {
+        .user-side-card {
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .avatar_box {
+            width: 120px;
+            height: 120px;
+        }
+
+        .avatar_box img {
+            width: 120px !important;
+            height: 120px !important;
+        }
+
+        .user-form-actions .btn {
+            width: 100%;
+        }
+
+        .user-form-actions {
+            display: grid;
+            gap: 0.5rem;
+        }
+    }
 </style>
 <div class="row">
     <div class="col-lg-3">
-        <div class="card mb-4">
+        <div class="card mb-4 user-side-card">
             <div class="card-body text-center">
                 <div class="container d-flex align-items-center justify-content-center">
                     <div class="avatar_box">
@@ -42,8 +74,8 @@
                     </div>
                 </div>
                 <h4 class="my-3">{{form.username.data}}</h4>
-                <p class="text-muted mb-1">{{ _('Role')}}: {{form.role.data}}</p>
-                <p class="text-muted mb-4">{{ _('Last login')}}: {{lastLogin}}</p>
+                <p class="text-muted mb-1 user-meta">{{ _('Role')}}: {{form.role.data}}</p>
+                <p class="text-muted mb-4 user-meta">{{ _('Last login')}}: {{lastLogin}}</p>
             </div>
         </div>
     </div>
@@ -76,15 +108,17 @@
                                 <!-- WTForms поле с дополнительными атрибутами -->
                                 {{ form.apikey(class="form-control") }}
 
-                                <button type="button" class="btn btn-primary" id="generateKeyBtn">
+                                <button type="button" class="btn btn-primary text-nowrap" id="generateKeyBtn">
                                     <i class="fas fa-key"></i> {{ _('Generate key')}}
                                 </button>
                             </div>
                         </div>
                     </div>
                     <!-- Кнопка отправки формы -->
-                    <button type="submit" class="btn btn-primary">{{ _('Submit')}}</button>
-                    <a href="Users" class="btn btn-secondary">{{ _('Cancel')}}</a>
+                    <div class="user-form-actions d-md-block">
+                        <button type="submit" class="btn btn-primary">{{ _('Submit')}}</button>
+                        <a href="Users" class="btn btn-secondary">{{ _('Cancel')}}</a>
+                    </div>
                 </form>
             </div>
         </div>
@@ -103,7 +137,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="file">{{ _('Select Image File')}}:</label>
-                        <input type="file" class="form-control-file" id="file" name="file" accept="image/*">
+                        <input type="file" class="form-control" id="file" name="file" accept="image/*">
                     </div>
                 </div>
                 <div class="modal-footer">
